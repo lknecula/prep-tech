@@ -23,6 +23,19 @@ def recursive_knapsack(weight_cap, weights, values, i):
 # dynamic approach: using memoization
 # will allow us to store information instead of making duplicate calls
 
+# matrix = 2D array with rows equal to number of items and empty columns
+# for every number of items you can carry (index):
+#   fill matrix[index] with an array of length weight_cap + 1
+#   for every weight < weight_cap (weight):
+#     if index or weight == 0:
+#       set element at [index][weight] to 0
+#     else if the weight of element at index - 1 <= weight:
+#       find possible values of including and excluding the item
+#       set element at [index][weight] to max of those values
+#     else:
+#       set element at [index][weight] to element one above
+# return element at bottom right of matrix
+
 
 def dynamic_knapsack(weight_cap, weights, values):
     rows = len(weights) + 1
@@ -40,8 +53,19 @@ def dynamic_knapsack(weight_cap, weights, values):
             # Write your code here
             if index == 0 or weight == 0:
                 matrix[index][weight] = 0
-            elif matrix[index-1] <= weight:
-                matrix[index][weight] = max
+            elif weights[index-1] <= weight:
+                matrix[index][weight] = max(values[index-1] + matrix[index-1][weight - weights[index-1]],
+                                            matrix[index-1][weight])
+            else:
+                matrix[index][weight] = matrix[index-1][weight]
 
     # Return the value of the bottom right of matrix
     return matrix[rows-1][weight_cap]
+
+
+if __name__ == "__main__":
+    # Use this to test your function:
+    weight_cap = 50
+    weights = [31, 10, 20, 19, 4, 3, 6]
+    values = [70, 20, 39, 37, 7, 5, 10]
+    print(dynamic_knapsack(weight_cap, weights, values))
