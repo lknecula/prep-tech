@@ -1,3 +1,6 @@
+# concept
+# water_at_index = min(highest_left_bound, highest_right_bound) - height_of_index
+
 def naive_solution(heights):
     total_water = 0
     for i in range(1, len(heights) - 1):
