@@ -1,0 +1,23 @@
+The knapsack problem is suited for dynamic programming because memoization will allow us to store 
+information instead of making duplicate calls. 
+We will store this information in a two-dimensional array that 
+has a row for every item and 
+weight_cap + 1 number of columns where each element in the 2D array (matrix) represents a subproblem. 
+The element at the bottom right will be the optimal solution.
+
+But what exactly do the rows and columns represent? The rows represent the items we have seen. 
+So if we are at row 4, then we have only seen the first 4 items, 
+meaning the others aren’t being considered yet. 
+The columns represent how much weight the knapsack can hold. 
+If we are at column 7, then we are looking at a subset of the larger problem where our knapsack 
+has a weight capacity of 7. 
+The number stored inside matrix is the maximum value we can take given 
+the weight capacity and number of items we have seen for that subproblem. 
+By the time we get to the bottom right space in matrix, 
+we have considered every possible subproblem and taken the maximum possible value.
+
+There are some elements in the matrix that will be easy to fill. 
+Every element in the zeroth row represents a subproblem with 0 items to consider, so there is no value. 
+Likewise, every element in the zeroth column represents a subproblem where our knapsack 
+has a capacity of 0, giving us no value to take. 
+Because of this, we start by filling the zeroth row and column with 0.
